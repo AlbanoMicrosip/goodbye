@@ -27,30 +27,17 @@ public class HazelcastConfig {
     return springManagedContext;
   }
   @Bean
-  public ClientConfig clientConfig(ManagedContext managedContext, EurekaClient eurekaClient) {
-    if(eurekaClient != null){
-
-      System.out.println(eurekaClient.toString());
-    }
-
-    EurekaOneDiscoveryStrategyFactory.setEurekaClient(eurekaClient);
-    EurekaOneDiscoveryStrategyFactory.setGroupName("dev");
-
-
+  public ClientConfig clientConfig() {
     ClientConfig clientConfig = new ClientConfig();
-
-    clientConfig.setManagedContext(managedContext);
-    clientConfig.getNetworkConfig()
-      .getEurekaConfig()
+    clientConfig.getNetworkConfig().getEurekaConfig()
       .setEnabled(true)
       .setProperty("self-registration", "true")
-      .setProperty("namespace", "hazelcast")
-      .setProperty("use-metadata-for-host-and-port", "true");
+      .setProperty("namespace", "hazelcast");
 
-
-
+    clientConfig.getGroupConfig().setName("hazelcast-say"); // reemplaza "hazelcast-say" con el nombre de tu grupo Hazelcast si es diferente
     return clientConfig;
   }
+
 
   @Bean
   public HazelcastInstance hazelcastInstance(ClientConfig clientConfig) {
