@@ -25,10 +25,10 @@ public class HazelcastConfig {
   public ClientConfig hazelcastClientConfig() {
     ClientConfig clientConfig = new ClientConfig();
 
-    clientConfig.getNetworkConfig().getEurekaConfig()
-      .setEnabled(true)
-      .setProperty("self-registration", "true")
-      .setProperty("namespace", "hazelcast");
+//    clientConfig.getNetworkConfig().getEurekaConfig()
+//      .setEnabled(true)
+//      .setProperty("self-registration", "false")
+//      .setProperty("namespace", "hazelcast");
     return clientConfig;
   }
 
