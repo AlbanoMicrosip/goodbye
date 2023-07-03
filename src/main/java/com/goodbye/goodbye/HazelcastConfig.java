@@ -32,11 +32,14 @@ public class HazelcastConfig {
 
       System.out.println(eurekaClient.toString());
     }
+
     EurekaOneDiscoveryStrategyFactory.setEurekaClient(eurekaClient);
     EurekaOneDiscoveryStrategyFactory.setGroupName("dev");
 
 
     ClientConfig clientConfig = new ClientConfig();
+
+    clientConfig.setManagedContext(managedContext);
     clientConfig.getNetworkConfig()
       .getEurekaConfig()
       .setEnabled(true)
@@ -44,7 +47,7 @@ public class HazelcastConfig {
       .setProperty("namespace", "hazelcast")
       .setProperty("use-metadata-for-host-and-port", "true");
 
-    clientConfig.setManagedContext(managedContext);
+
 
     return clientConfig;
   }
