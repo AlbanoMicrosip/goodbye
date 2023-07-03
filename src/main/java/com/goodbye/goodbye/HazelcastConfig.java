@@ -34,7 +34,7 @@ public class HazelcastConfig {
       .setProperty("self-registration", "true")
       .setProperty("namespace", "hazelcast");
 
-    clientConfig.getGroupConfig().setName("hazelcast-say"); // reemplaza "hazelcast-say" con el nombre de tu grupo Hazelcast si es diferente
+    clientConfig.getGroupConfig().setName("hazelcast-test"); // reemplaza "hazelcast-say" con el nombre de tu grupo Hazelcast si es diferente
     return clientConfig;
   }
 
