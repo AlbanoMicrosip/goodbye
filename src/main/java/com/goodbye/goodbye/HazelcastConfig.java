@@ -18,8 +18,6 @@ import org.springframework.context.annotation.Configuration;
 public class HazelcastConfig {
 
   private static Logger log = LoggerFactory.getLogger(HazelcastConfig.class);
-  @Autowired
-  private EurekaClient eurekaClient;
 
   private ApplicationContext applicationContext;
 
@@ -30,6 +28,9 @@ public class HazelcastConfig {
   }
   @Bean
   public ClientConfig clientConfig(ManagedContext managedContext, EurekaClient eurekaClient) {
+    if(eurekaClient != null){
+      System.out.println("Hola");
+    }
     EurekaOneDiscoveryStrategyFactory.setEurekaClient(eurekaClient);
 
     ClientConfig clientConfig = new ClientConfig();
