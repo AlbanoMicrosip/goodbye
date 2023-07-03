@@ -29,9 +29,12 @@ public class HazelcastConfig {
   @Bean
   public ClientConfig clientConfig(ManagedContext managedContext, EurekaClient eurekaClient) {
     if(eurekaClient != null){
-      System.out.println("Hola");
+
+      System.out.println(eurekaClient.toString());
     }
     EurekaOneDiscoveryStrategyFactory.setEurekaClient(eurekaClient);
+    EurekaOneDiscoveryStrategyFactory.setGroupName("dev");
+
 
     ClientConfig clientConfig = new ClientConfig();
     clientConfig.getNetworkConfig().getEurekaConfig()
