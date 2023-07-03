@@ -25,16 +25,10 @@ public class HazelcastConfig {
   public ClientConfig hazelcastClientConfig() {
     ClientConfig clientConfig = new ClientConfig();
 
-    clientConfig.setProperty("hazelcast.discovery.enabled", "true");
-    EurekaOneDiscoveryStrategyFactory discoveryStrategyFactory = new EurekaOneDiscoveryStrategyFactory();
-    Map<String, Comparable> properties = new HashMap<>();
-    properties.put("self-registration", "true");
-    properties.put("namespace", "hazelcast");
-    DiscoveryStrategyConfig discoveryStrategyConfig = new DiscoveryStrategyConfig(discoveryStrategyFactory, properties);
-
-    clientConfig.getNetworkConfig().getDiscoveryConfig()
-      .addDiscoveryStrategyConfig(discoveryStrategyConfig);
-
+    clientConfig.getNetworkConfig().getEurekaConfig()
+      .setEnabled(true)
+      .setProperty("self-registration", "true")
+      .setProperty("namespace", "hazelcast");
     return clientConfig;
   }
 
