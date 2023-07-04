@@ -35,8 +35,6 @@ public class GoodbyeApplication {
 		clientConfig.getNetworkConfig().getDiscoveryConfig()
 			.addDiscoveryStrategyConfig(discoveryStrategyConfig);
 
-		clientConfig.getNetworkConfig().getEurekaConfig().setEnabled(true).setProperty("namespace","hazelcast");
-
 		return clientConfig;
 	}
 }
