@@ -1,6 +1,8 @@
 package com.goodbye.goodbye;
 
 import com.hazelcast.client.config.ClientConfig;
+import com.hazelcast.config.DiscoveryStrategyConfig;
+import com.hazelcast.eureka.one.EurekaOneDiscoveryStrategyFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,9 +25,18 @@ public class GoodbyeApplication {
 	@Bean
 	public ClientConfig hazelcastConfig() {
 		ClientConfig clientConfig = new ClientConfig();
-		clientConfig.getNetworkConfig().getEurekaConfig().setEnabled(true)
-			.setProperty("namespace", "hazelcast");
+		clientConfig.setProperty("hazelcast.discovery.enabled", "true");
+
+		EurekaOneDiscoveryStrategyFactory discoveryStrategyFactory = new EurekaOneDiscoveryStrategyFactory();
+		Map<String, Comparable> properties = new HashMap<>();
+		properties.put("self-registration", "true");
+		properties.put("namespace", "hazelcast");
+		DiscoveryStrategyConfig discoveryStrategyConfig = new DiscoveryStrategyConfig(discoveryStrategyFactory, properties);
+
+		clientConfig.getNetworkConfig().getDiscoveryConfig()
+			.addDiscoveryStrategyConfig(discoveryStrategyConfig);
 
 		return clientConfig;
+
 	}
 }
