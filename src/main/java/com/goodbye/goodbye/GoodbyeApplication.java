@@ -29,7 +29,6 @@ public class GoodbyeApplication {
 
 		EurekaOneDiscoveryStrategyFactory discoveryStrategyFactory = new EurekaOneDiscoveryStrategyFactory();
 		Map<String, Comparable> properties = new HashMap<>();
-		properties.put("self-registration", "true");
 		properties.put("namespace", "hazelcast");
 		DiscoveryStrategyConfig discoveryStrategyConfig = new DiscoveryStrategyConfig(discoveryStrategyFactory, properties);
 
