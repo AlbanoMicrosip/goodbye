@@ -21,7 +21,6 @@ public class GoodbyeController {
   @GetMapping("/call-say-instance")
   public String callSayInstance() {
     System.out.println("Viendo si soy llamdo");
-//    return restTemplate.getForObject("http://say-hello1:8080/", String.class);
     return restTemplate.getForObject("http://" + "SAY-INSTANCE" + "/", String.class);
   }
   @GetMapping("/call-say-instance-fix")
