@@ -1,5 +1,6 @@
 package com.goodbye.goodbye;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -15,6 +16,12 @@ public class GoodbyeApplication {
 	@Bean
 	@LoadBalanced
 	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+
+	@Bean
+	@Qualifier("NoBalancing")
+	public RestTemplate restTemplateNoBalancing() {
 		return new RestTemplate();
 	}
 }
