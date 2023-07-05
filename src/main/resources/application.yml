@@ -1,7 +1,10 @@
 spring:
   application:
     name: GOODBYE-INSTANCE
-
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
 eureka:
   client:
     serviceUrl:
@@ -13,3 +16,5 @@ eureka:
 
 server:
   port: 8080
+
+
