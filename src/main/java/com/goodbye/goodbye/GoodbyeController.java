@@ -22,4 +22,9 @@ public class GoodbyeController {
     System.out.println("Viendo si soy llamdo");
     return restTemplate.getForObject("http://say-hello1:8080/", String.class);
   }
+
+  @GetMapping("/hola")
+  public String hola(){
+    return "Hola";
+  }
 }
