@@ -17,7 +17,7 @@ public class GoodbyeController {
   private final DiscoveryClient discoveryClient;
 
   @Autowired
-  public GoodbyeController(RestTemplate restTemplate, DiscoveryClient discoveryClient, RestTemplate restTemplateNoBalancin) {
+  public GoodbyeController(RestTemplate restTemplate, DiscoveryClient discoveryClient, @Qualifier("NoBalancing") RestTemplate restTemplateNoBalancin) {
     this.restTemplate = restTemplate;
     this.discoveryClient = discoveryClient;
     this.restTemplateNoBalancin =restTemplateNoBalancin;
