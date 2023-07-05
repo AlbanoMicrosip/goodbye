@@ -19,6 +19,7 @@ public class GoodbyeController {
   }
   @GetMapping("/call-say-instance-fix")
   public String callSayInstanceFix() {
+    System.out.println("Viendo si soy llamdo");
     return restTemplate.getForObject("http://say-hello1:8080/", String.class);
   }
 }
