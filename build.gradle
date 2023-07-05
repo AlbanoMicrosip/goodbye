@@ -43,7 +43,6 @@ dependencies {
 	implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client') {
 		exclude group: 'org.springframework.cloud', module: 'spring-cloud-starter-netflix-ribbon'
 	}
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 dependencyManagement {
