@@ -1,41 +1,26 @@
 package com.goodbye.goodbye;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class GoodbyeController {
-
-  private final RestTemplate restTemplate;
-
-  @Qualifier("NoBalancing")
-  private final RestTemplate restTemplateNoBalancin;
-  private final DiscoveryClient discoveryClient;
-
-  @Autowired
-  public GoodbyeController(RestTemplate restTemplate, DiscoveryClient discoveryClient, @Qualifier("NoBalancing") RestTemplate restTemplateNoBalancin) {
-    this.restTemplate = restTemplate;
-    this.discoveryClient = discoveryClient;
-    this.restTemplateNoBalancin =restTemplateNoBalancin;
-  }
-
-  @GetMapping("/call-say-instance")
-  public String callSayInstance() {
-    System.out.println("Viendo si soy llamdo");
-    return restTemplate.getForObject("http://" + "SAY-INSTANCE" + "/", String.class);
-  }
-  @GetMapping("/call-say-instance-fix")
-  public String callSayInstanceFix() {
-    System.out.println("Viendo si soy llamdo");
-    return restTemplateNoBalancin.getForObject("http://say-hello1:8080/", String.class);
+  @PostMapping("/hola")
+  public String hola(@RequestBody String cadena){
+    System.out.println("MetodoHola llmado POST");
+    return "Hola: "+cadena;
   }
 
   @GetMapping("/hola")
-  public String hola(){
-    return "Hola";
+  public String metodoHola(){
+    System.out.println("MetodoHola llmado GET");
+    return "Soy un metodo hola";
+  }
+  @GetMapping("/aux")
+  public String metodoAux(){
+    System.out.println("MetodoAux llamado");
+    return "Soy un metodo aux";
   }
 }
