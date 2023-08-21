@@ -39,6 +39,8 @@ RUN set -x \
     && export SUDO_FORCE_REMOVE=yes \
     && apt-get purge -y --auto-remove sudo \
     && apt-get clean
-VOLUME /tmp
+ARG PORT
+ENV PORT ${PORT:-8080}
 COPY --from=build-stage /home/microsip/microservice-build/build/libs/*.jar /app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+RUN sh -c 'touch /app.jar'
+CMD ["sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar"]
