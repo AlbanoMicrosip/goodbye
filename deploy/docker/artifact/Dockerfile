@@ -26,6 +26,9 @@ RUN ./gradlew clean build -x test
 # phase two, which uses the java binary produced above
 FROM 203593945322.dkr.ecr.us-east-1.amazonaws.com/microsip/oracle-jdk:1.8_202
 LABEL maintainer "Juan Francisco Alvarez Urquijo <paco@technogi.com.mx>"
+#ARG LOGGLY_SUBDOMAIN
+#ARG LOGGLY_USERNAME
+#ARG LOGGLY_PASSWORD
 RUN set -x \
     && apt-get update \
     && apt-get install -y -q --no-install-recommends \
@@ -41,6 +44,10 @@ RUN set -x \
     && apt-get clean
 ARG PORT
 ENV PORT ${PORT:-8080}
+VOLUME /tmp
+EXPOSE $PORT
+ADD src/main/docker/docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint.sh"]
 COPY --from=build-stage /home/microsip/microservice-build/build/libs/*.jar /app.jar
-RUN sh -c 'touch /app.jar'
+# RUN sh -c 'touch /app.jar'
 CMD ["sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar"]
