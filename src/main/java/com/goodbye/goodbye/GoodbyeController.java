@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 @RestController
 public class GoodbyeController {
   @PostMapping("/hola")
@@ -22,5 +25,10 @@ public class GoodbyeController {
   public String metodoAux(){
     System.out.println("MetodoAux llamado");
     return "Soy un metodo aux";
+  }
+
+  @PreDestroy
+  public void preDestroy() {
+    System.out.println("APUNTO DE CERRAR PROGRAMAAA");
   }
 }
