@@ -49,5 +49,5 @@ EXPOSE $PORT
 ADD src/main/docker/docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 COPY --from=build-stage /home/microsip/microservice-build/build/libs/*.jar /app.jar
-RUN sh -c 'touch /app.jar'
+# RUN sh -c 'touch /app.jar'
 CMD ["sh", "-c", "java -jar /app.jar"]
