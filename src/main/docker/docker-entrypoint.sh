@@ -2,6 +2,17 @@
 # @see http://blog.kablamo.org/2015/11/08/bash-tricks-eux/
 set -euo pipefail
 
+# Define una función para manejar la señal SIGTERM
+handle_sigterm() {
+    echo "Se recibió SIGTERM. Limpiando y saliendo..."
+    # Aquí puedes agregar cualquier otra lógica de limpieza que necesites
+    exit 0
+}
+
+# Atrapa la señal SIGTERM y llama a la función handle_sigterm
+trap 'handle_sigterm' SIGTERM
+
+
 # usage: file_env VAR [DEFAULT]
 #    ie: file_env 'XYZ_DB_PASSWORD' 'example'
 # (will allow for "$XYZ_DB_PASSWORD_FILE" to fill in the value of
@@ -22,7 +33,7 @@ file_env() {
 	elif [ "${!fileVar:-}" ]; then
 		val="$(< "${!fileVar}")"
 	fi
-	# Only verify and export the Environment Variables that User Needs to Expose
+  # Only verify and export the Environment Variables that User Needs to Expose
 	if [ -n "${val}" ]; then
 	  echo "Exporting environment variables: $var=$val"
 		export "$var"="$val"
@@ -31,23 +42,16 @@ file_env() {
 }
 
 envs=(
-	SPRING_CLOUD_CONFIG_URI
+	SPRING_CONFIG_IMPORT
 	SPRING_CLOUD_CONFIG_USERNAME
 	SPRING_CLOUD_CONFIG_PASSWORD
-	SECURITY_USER_NAME
-	SECURITY_USER_PASSWORD
 	SPRING_RABBITMQ_USERNAME
 	SPRING_RABBITMQ_PASSWORD
 	SPRING_RABBITMQ_HOST
 	SPRING_RABBITMQ_PORT
-	SPRING_CLOUD_CONFIG_SERVER_MONITOR_GITHUB_ENABLED
-	MS_GITHUB_USERNAME
-	MS_GITHUB_PASSWORD
-	MS_GITHUB_EMAIL
 	SPRING_PROFILES_ACTIVE
 	PREFIX_STREAM
 	SERVICE_NAME
-	CONSOLE_LOG_PATTERN
 	AWS_LOGS_REGION
 	AWS_REGION
 	AWS_SECRET_ACCESS_KEY
@@ -58,8 +62,5 @@ envs=(
 for e in "${envs[@]}"; do
 	file_env "$e"
 done
-
-#rm -rf /var/run/rsyslogd.pid
-#service rsyslog start
 
 exec "$@"
